@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common'
 import { UsersService } from './users.service'
-import { Ctx, EventPattern, RmqContext, MessagePattern, Payload } from '@nestjs/microservices'
+import { Ctx, EventPattern, RmqContext, Payload } from '@nestjs/microservices'
 import { RmqService } from '../../infrastructure/amqp/amqp.service'
 
 @Controller('test/users')
