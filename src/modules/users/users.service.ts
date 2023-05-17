@@ -7,6 +7,7 @@ import { ClientProxy } from '@nestjs/microservices'
 import { USERS_SERVICE } from './constants/services'
 import { ConfigService } from '@nestjs/config'
 import { Message } from './helpers/message.event'
+import { JsonplaceholderNotFoundException } from './exceptions/jsonplaceholder-not-found.exceptions'
 
 @Injectable()
 export class UsersService {
@@ -27,6 +28,11 @@ export class UsersService {
                 })
             )
         )
+
+        if (!data) {
+            throw new JsonplaceholderNotFoundException()
+        }
+
         const usersSortedById = data.sort((a, b) => b.id - a.id)
 
         /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
@@ -34,9 +40,7 @@ export class UsersService {
 
         const usersEven = usersWithoutAddress.filter((item) => item.id % 2 === 0)
 
-        console.log('usersEven ', usersEven)
-
-        this.client.emit('send-users-filtered', new Message('Hello World'))
+        this.client.emit('send-users-filtered', new Message(JSON.stringify(usersEven)))
 
         return usersWithoutAddress
     }

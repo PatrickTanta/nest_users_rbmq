@@ -38,6 +38,9 @@ $ npm install
 # rabittMQ
 $ docker-compose up -d
 
+# open rabittMQ browser at
+$ http://localhost:15672/
+
 # development
 $ npm run start
 
